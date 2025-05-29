@@ -137,6 +137,10 @@ const config = {
         test: /\.js$/,
         enforce: "pre",
         use: ["source-map-loader"],
+        exclude: [
+          /node_modules\/@plotly\/mapbox-gl/, // add this line
+          /node_modules\/mapbox-gl/,
+        ],
       },
       {
         test: /\.(t|j)sx?$/,

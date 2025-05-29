@@ -4,9 +4,10 @@ x-redash-service: &redash-service
   build:
     context: .
     args:
-      skip_frontend_build: "true"  # set to empty string to build
+      skip_frontend_build: ""  # set to empty string to build
   volumes:
-    - .:/app
+    - ./client/dist:/app/client/dist
+
   env_file:
     - .env
 x-redash-environment: &redash-environment
@@ -34,6 +35,7 @@ services:
     environment:
       <<: *redash-environment
       PYTHONUNBUFFERED: 0
+      REDASH_LOG_LEVEL: DEBUG 
   scheduler:
     <<: *redash-service
     command: dev_scheduler

@@ -21,6 +21,7 @@ _REDIS_URL = os.environ.get("REDASH_REDIS_URL", os.environ.get("REDIS_URL", "red
 # This is the one to use for Redash' own connection:
 REDIS_URL = add_decode_responses_to_redis_url(_REDIS_URL)
 PROXIES_COUNT = int(os.environ.get("REDASH_PROXIES_COUNT", "1"))
+LOG_LEVEL = os.environ.get("REDASH_LOG_LEVEL", "INFO")
 
 STATSD_HOST = os.environ.get("REDASH_STATSD_HOST", "127.0.0.1")
 STATSD_PORT = int(os.environ.get("REDASH_STATSD_PORT", "8125"))

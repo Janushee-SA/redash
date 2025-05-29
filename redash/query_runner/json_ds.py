@@ -1,7 +1,6 @@
 import datetime
 import logging
 from urllib.parse import urljoin
-
 import yaml
 from funcy import compact, project
 
@@ -154,10 +153,10 @@ class JSON(BaseHTTPQueryRunner):
     def test_connection(self):
         pass
 
-    def run_query(self, query, user):
+    def run_query(self, query, user=None,metadata=None):
         query = parse_query(query)
 
-        data, error = self._run_json_query(query)
+        data, error = self._run_json_query(query,user,metadata)
         if error is not None:
             return None, error
 
@@ -165,7 +164,7 @@ class JSON(BaseHTTPQueryRunner):
             return data, None
         return None, "Got empty response from '{}'.".format(query["url"])
 
-    def _run_json_query(self, query):
+    def _run_json_query(self, query,user,metadata):
         if not isinstance(query, dict):
             raise QueryParseError("Query should be a YAML object describing the URL to query.")
 
@@ -173,8 +172,16 @@ class JSON(BaseHTTPQueryRunner):
             raise QueryParseError("Query must include 'url' option.")
 
         method = query.get("method", "get")
+        
+        query["headers"]["X-Redash-User-Email"] = user.email
         request_options = project(query, ("params", "headers", "data", "auth", "json", "verify"))
 
+         # Add UserEmail from metadata to headers if available
+        # if metadata and hasattr(metadata, 'UserEmail'):
+        #     request_options.setdefault("headers", {})["X-Redash-User-Email"] = metadata.UserEmail
+        # elif metadata and 'UserEmail' in metadata:
+        #     request_options.setdefault("headers", {})["X-Redash-User-Email"] = metadata['UserEmail']
+       
         fields = query.get("fields")
         path = query.get("path")
 
@@ -201,7 +208,7 @@ class JSON(BaseHTTPQueryRunner):
         """Get all results from a paginated endpoint."""
         base_url = self.configuration.get("base_url")
         url = urljoin(base_url, url)
-
+        
         results = []
         has_more = True
         while has_more:
@@ -218,7 +225,9 @@ class JSON(BaseHTTPQueryRunner):
 
     def _get_json_response(self, url, method, **request_options):
         response, error = self.get_response(url, http_method=method, **request_options)
+
         result = response.json() if error is None else {}
+
         return result, error
 
 

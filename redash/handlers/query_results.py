@@ -35,6 +35,13 @@ from redash.utils import (
     json_dumps,
     to_filename,
 )
+from redash.worker import get_job_logger
+
+
+logger =  get_job_logger(__name__)
+
+
+
 
 
 def error_response(message, http_status=400):
@@ -108,6 +115,8 @@ def run_query(query, parameters, data_source, query_id, should_apply_auto_limit,
             metadata={
                 "Username": current_user.get_actual_user(),
                 "query_id": query_id,
+                "UserEmail": current_user.email,
+
             },
         )
         return serialize_job(job)
