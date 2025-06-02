@@ -173,7 +173,7 @@ class JSON(BaseHTTPQueryRunner):
 
         method = query.get("method", "get")
         
-        query["headers"]["X-Redash-User-Email"] = user.email
+        query["headers"]["x-redash-user-email-header"] = user.email
         request_options = project(query, ("params", "headers", "data", "auth", "json", "verify"))
 
          # Add UserEmail from metadata to headers if available
