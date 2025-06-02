@@ -12,6 +12,9 @@ module.exports = {
     libraryTarget: "umd",
     assetModuleFilename: 'images/[name][ext]'
   },
+  devServer: {
+    port : 4455
+  },
   resolve: {
     symlinks: false,
     extensions: [".js", ".jsx", ".ts", ".tsx"],

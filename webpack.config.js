@@ -284,7 +284,8 @@ const config = {
         secure: false
       }
     ],
-    hot: isHotReloadingEnabled
+    hot: isHotReloadingEnabled,
+    port:4455
   },
   performance: {
     hints: false

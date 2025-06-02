@@ -137,7 +137,7 @@ class Trino(BaseQueryRunner):
         connection = trino.dbapi.connect(
             http_scheme=self.configuration.get("protocol", "http"),
             host=self.configuration.get("host", ""),
-            port=self.configuration.get("port", 8080),
+            port=self.configuration.get("port", 4455),
             catalog=self.configuration.get("catalog", ""),
             schema=self.configuration.get("schema", ""),
             user=self.configuration.get("username"),

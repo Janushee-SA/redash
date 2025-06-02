@@ -101,7 +101,7 @@ class Presto(BaseQueryRunner):
     def run_query(self, query, user):
         connection = presto.connect(
             host=self.configuration.get("host", ""),
-            port=self.configuration.get("port", 8080),
+            port=self.configuration.get("port", 4455),
             protocol=self.configuration.get("protocol", "http"),
             username=self.configuration.get("username", "redash"),
             password=(self.configuration.get("password") or None),
