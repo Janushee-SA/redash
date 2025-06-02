@@ -2,7 +2,7 @@ const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:5001',
+    baseUrl: 'http://localhost:9999',
     defaultCommandTimeout: 20000,
     downloadsFolder: 'client/cypress/downloads',
     fixturesFolder: 'client/cypress/fixtures',
