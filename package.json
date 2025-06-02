@@ -7,7 +7,7 @@
     "start": "npm-run-all --parallel watch:viz webpack-dev-server",
     "clean": "rm -rf ./client/dist/",
     "build:viz": "(cd viz-lib && yarn build:babel)",
-    "build": "yarn clean && yarn build:viz && NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production webpack",
+    "build": " yarn build:viz && NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production webpack",
     "watch:app": "NODE_OPTIONS=--openssl-legacy-provider webpack watch --progress",
     "watch:viz": "(cd viz-lib && yarn watch:babel)",
     "watch": "npm-run-all --parallel watch:*",
